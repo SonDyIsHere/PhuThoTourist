@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import icon from '../assets/icon'; // Đảm bảo đường dẫn chính xác
+import icon from '../assets/icon';
 
 const Footer: React.FC = () => {
     const listCompany = [
@@ -21,15 +21,15 @@ const Footer: React.FC = () => {
     return (
         <footer className="bg-blue-900 text-white text-sm">
             <div className="container mx-auto px-4 py-6">
-                <div className="flex flex-col md:flex-row justify-between"> {/* Thay đổi cách sắp xếp */}
-                    {/* Company Section */}
+                <div className="flex flex-col md:flex-row justify-between">
+                    {/* Phần Công ty */}
                     <div className="flex flex-col flex-1 mb-4">
                         <div className="flex items-center mb-2">
                             <Link to="/">
                                 <img
                                     className="w-32 h-20 md:w-20 md:h-14"
                                     src={icon.logo} 
-                                    alt="Phu Tho Hotel"
+                                    alt="Phu Tho Tourist"
                                 />
                             </Link>
                             <div className="ml-2">
@@ -43,7 +43,7 @@ const Footer: React.FC = () => {
                         </div>
                     </div>
 
-                    {/* Contact Section */}
+                    {/* Phần Liên hệ */}
                     <div className="flex-1 mb-4">
                         <h3 className="text-lg font-semibold mb-1">LIÊN HỆ</h3>
                         <ul className="space-y-2">
@@ -66,7 +66,7 @@ const Footer: React.FC = () => {
                         </ul>
                     </div>
 
-                    {/* Affiliate Section */}
+                    {/* Phần Đối tác */}
                     <div className="flex-1 mb-4">
                         <h3 className="text-lg font-semibold mb-1">
                             CÁC ĐƠN VỊ CÙNG HỆ THỐNG PHUTHOTOURIST
@@ -81,7 +81,7 @@ const Footer: React.FC = () => {
                     </div>
                 </div>
 
-                {/* Copyright Section */}
+                {/* Phần Bản quyền */}
                 <div className="mt-2 text-center text-xs">
                     Copyright ⓒ Công ty Cổ phần Dịch vụ Du lịch Phú Thọ
                 </div>

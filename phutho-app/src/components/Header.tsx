@@ -11,13 +11,12 @@ const Header: React.FC = () => {
     <header className="bg-blue-900 text-white shadow-md">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <div className="flex items-center">
-          {/* Logo */}
           <img
-            src={icon.logo} // Thay thế bằng đường dẫn logo của bạn
+            src={icon.logo}
             alt="PhuThoTourist Logo"
             className="h-12 mr-4"
           />
-          {/* Navigation */}
+          {/* thanh navbar */}
           <nav className="hidden lg:flex space-x-6">
             <a href="#" className="hover:text-gray-300">
               TRANG CHỦ
@@ -34,7 +33,7 @@ const Header: React.FC = () => {
           </nav>
         </div>
 
-        {/* Menu Button for Mobile */}
+        {/* Menu Button dành cho mobile */}
         <div className="lg:hidden">
           <button onClick={toggleMenu} className="text-white">
             <svg
@@ -55,7 +54,7 @@ const Header: React.FC = () => {
         </div>
       </div>
 
-      {/* Mobile Menu (hidden by default, show on mobile) */}
+
       {menuIsOpen && (
         <div className="lg:hidden bg-blue-800 p-4 space-y-4">
           <a href="#" className="block text-white hover:text-gray-300">
