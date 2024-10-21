@@ -15,7 +15,7 @@ const Header: React.FC = () => {
         <nav className="hidden lg:flex w-full justify-center items-center">
 
           <div className="flex space-x-8">
-            <a href="#" className="text-white text-xl font-bold uppercase hover:border-b border-white">
+            <a href="/" className="text-white text-xl font-bold uppercase hover:border-b border-white">
               TRANG CHỦ
             </a>
             <a href="#" className="text-white text-xl font-bold uppercase hover:border-b border-white">
@@ -35,7 +35,7 @@ const Header: React.FC = () => {
             <a href="#" className="text-white text-xl font-bold uppercase hover:border-b border-white">
               TÀI LIỆU
             </a>
-            <a href="#" className="text-white text-xl font-bold uppercase hover:border-b border-white">
+            <a href="/careers" className="text-white text-xl font-bold uppercase hover:border-b border-white">
               TUYỂN DỤNG
             </a>
           </div>

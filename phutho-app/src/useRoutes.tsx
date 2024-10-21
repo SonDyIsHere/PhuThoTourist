@@ -32,14 +32,14 @@ export default function useRouteElements() {
         //         </MainLayout>
         //     )
         // },
-        // {
-        //     path: '/careers',
-        //     element: (
-        //         <MainLayout>
-        //             <Careers />
-        //         </MainLayout>
-        //     )
-        // }
+        {
+            path: '/careers',
+            element: (
+                <MainLayout>
+                    <Careers />
+                </MainLayout>
+            )
+        }
     ]);
 
     return routeElement;
