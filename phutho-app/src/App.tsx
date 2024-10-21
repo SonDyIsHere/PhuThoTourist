@@ -1,21 +1,8 @@
-// App.tsx
-import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
-import Header from "../src/components/Header";
-import Footer from "../src/components/Footer";
+import useRoutes from './useRoutes';
 
-const App: React.FC = () => {
-  return (
-    <Router>
-      <div className="flex flex-col min-h-screen"> 
-        <Header />
-        <main className="flex-grow"> 
-          <div>aaaa</div>
-        </main>
-        <Footer />
-      </div>
-    </Router>
-  );
-};
+function App() {
+    const routeElement = useRoutes();
+    return <div>{routeElement}</div>;
+}
 
 export default App;

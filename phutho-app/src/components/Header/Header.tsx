@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import icon from '../assets/icon';
+import icon from '../../assets/icon';
+
 const Header: React.FC = () => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
 
@@ -8,32 +9,39 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="bg-blue-900 text-white shadow-md">
+    <header className="sticky top-0 z-50 border-b border-white bg-blue-900 bg-opacity-80 backdrop-blur-lg font-philosopher">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <div className="flex items-center">
-          <img
-            src={icon.logo}
-            alt="PhuThoTourist Logo"
-            className="h-12 mr-4"
-          />
-          {/* thanh navbar */}
-          <nav className="hidden lg:flex space-x-6">
-            <a href="#" className="hover:text-gray-300">
+        {/* Navbar */}
+        <nav className="hidden lg:flex w-full justify-center items-center">
+
+          <div className="flex space-x-8">
+            <a href="#" className="text-white text-xl font-bold uppercase hover:border-b border-white">
               TRANG CHỦ
             </a>
-            <a href="#" className="hover:text-gray-300">
+            <a href="#" className="text-white text-xl font-bold uppercase hover:border-b border-white">
               BÀI VIẾT
             </a>
-            <a href="#" className="hover:text-gray-300">
+          </div>
+
+          <div className="mx-8">
+            <img
+              src={icon.logo}
+              alt="PhuThoTourist Logo"
+              className="h-18 md:h-12" // Adjusted for mobile and larger screens
+            />
+          </div>
+
+          <div className="flex space-x-8">
+            <a href="#" className="text-white text-xl font-bold uppercase hover:border-b border-white">
               TÀI LIỆU
             </a>
-            <a href="#" className="hover:text-gray-300">
+            <a href="#" className="text-white text-xl font-bold uppercase hover:border-b border-white">
               TUYỂN DỤNG
             </a>
-          </nav>
-        </div>
+          </div>
+        </nav>
 
-        {/* Menu Button dành cho mobile */}
+        {/* Mobile Menu Button */}
         <div className="lg:hidden">
           <button onClick={toggleMenu} className="text-white">
             <svg
@@ -54,7 +62,7 @@ const Header: React.FC = () => {
         </div>
       </div>
 
-
+      {/* Mobile Menu */}
       {menuIsOpen && (
         <div className="lg:hidden bg-blue-800 p-4 space-y-4">
           <a href="#" className="block text-white hover:text-gray-300">
