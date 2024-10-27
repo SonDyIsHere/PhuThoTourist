@@ -24,12 +24,16 @@ function PostCard({
     return (
         <article className={`bg-white rounded-lg shadow-md overflow-hidden ${mini ? 'max-w-xs' : 'max-w-md'} transition-transform duration-300`}>
             <Link to="#">
-                <div className={`relative ${mini ? 'h-32' : 'h-48'}`}>
+                <div className={`relative ${mini ? 'h-32' : 'h-48'} group`}>
                     <img
                         src={image}
                         alt=""
-                        className={`w-full h-full object-cover ${mini ? 'rounded-t-lg' : 'rounded-lg'}`}
+                        className={`w-full h-full object-cover transition-transform duration-300 ${mini ? 'rounded-t-lg' : 'rounded-lg'} group-hover:scale-105`}
                     />
+                    {/* Overlay */}
+                    <div className={`absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${mini ? 'rounded-t-lg' : 'rounded-lg'}`}>
+                        <span className="text-white font-semibold text-lg">Click để xem</span>
+                    </div>
                 </div>
             </Link>
             <div className={`p-4 ${mini ? 'text-sm' : 'text-base'}`}>

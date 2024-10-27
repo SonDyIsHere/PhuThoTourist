@@ -18,7 +18,7 @@ const Header: React.FC = () => {
             <a href="/" className="text-white text-xl font-bold uppercase hover:border-b border-white">
               TRANG CHỦ
             </a>
-            <a href="#" className="text-white text-xl font-bold uppercase hover:border-b border-white">
+            <a href="/blogs" className="text-white text-xl font-bold uppercase hover:border-b border-white">
               BÀI VIẾT
             </a>
           </div>

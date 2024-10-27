@@ -14,7 +14,6 @@ function PageHeader({ text }: PageHeaderProps) {
             >
                 <span className="text-sky-700 text-center font-philosopher text-4xl font-bold md:w-[250px] md:h-[60px] md:text-2.6xl">
                     {text}
-                    aa
                 </span>
             </span>
         </h1>

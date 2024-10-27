@@ -16,14 +16,14 @@ export default function useRouteElements() {
                 </MainLayout>
             )
         },
-        // {
-        //     path: '/blogs',
-        //     element: (
-        //         <MainLayout>
-        //             {/* <Blogs /> */}
-        //         </MainLayout>
-        //     )
-        // },
+        {
+            path: '/blogs',
+            element: (
+                <MainLayout>
+                    <Blogs />
+                </MainLayout>
+            )
+        },
         // {
         //     path: '/documents',
         //     element: (
