@@ -32,7 +32,7 @@ const Header: React.FC = () => {
           </div>
 
           <div className="flex space-x-8">
-            <a href="#" className="text-white text-xl font-bold uppercase hover:border-b border-white">
+            <a href="/documents" className="text-white text-xl font-bold uppercase hover:border-b border-white">
               TÀI LIỆU
             </a>
             <a href="/careers" className="text-white text-xl font-bold uppercase hover:border-b border-white">

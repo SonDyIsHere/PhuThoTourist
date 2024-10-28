@@ -12,7 +12,7 @@ function Button({ text, to, className, maxWidth }: ButtonProps) {
 
     return (
         <Comp
-            className={`bg-blue-500 text-white font-bold py-2 px-4 rounded ${className}`}
+            className={`bg-blue-900 text-white font-bold py-2 px-4 rounded ${className}`}
             to={to}
             style={{ maxWidth }}
         >

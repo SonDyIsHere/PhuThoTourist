@@ -24,14 +24,14 @@ export default function useRouteElements() {
                 </MainLayout>
             )
         },
-        // {
-        //     path: '/documents',
-        //     element: (
-        //         <MainLayout>
-        //             <Documents />
-        //         </MainLayout>
-        //     )
-        // },
+        {
+            path: '/documents',
+            element: (
+                <MainLayout>
+                    <Documents />
+                </MainLayout>
+            )
+        },
         {
             path: '/careers',
             element: (
