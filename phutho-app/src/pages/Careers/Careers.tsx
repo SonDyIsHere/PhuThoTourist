@@ -25,7 +25,7 @@ const Careers: React.FC = () => {
             <div className="flex justify-center pt-12 md:pt-6">
                 <PageHeader text="TUYỂN DỤNG" />
             </div>
-            <div className="flex p-44 min-w-[1000px] mx-auto space-x-12">
+            <div className="flex px-44 py-14 min-w-[1000px] mx-auto space-x-12">
                 <div className='min-w-[400px]'>
                 {/* Career Filter */}
                 <div className="flex flex-col border-white border-b lg:flex-row gap-4 bg-slate-300 p-6 lg:p-4 rounded-t-lg shadow-lg backdrop-blur-md">
@@ -97,7 +97,7 @@ const Careers: React.FC = () => {
                     </div>
 
                     </div>
-                <div >
+                <div>
                     {/* Career Cards */}
                     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                         <CareerCard active={true} />
@@ -109,11 +109,11 @@ const Careers: React.FC = () => {
                     </div>
 
                     {/* Pagination */}
-                    <div className="flex items-center justify-center space-x-2 mt-8">
+                    <div className="flex items-center w-64 justify-center m-auto rounded-full space-x-2 mt-8 bg-slate-300">
                         <button className="w-8 h-8 flex items-center justify-center text-gray-400">
                             <img src={icon.paginate_prev_disable} alt="Previous" />
                         </button>
-                        <button className="w-8 h-8 text-center font-medium bg-blue-600 text-white rounded">1</button>
+                        <button className="w-8 h-8 m-2 text-center font-medium bg-blue-600 text-white rounded">1</button>
                         <button className="w-8 h-8 text-center font-medium text-gray-700">2</button>
                         <button className="w-8 h-8 text-center font-medium text-gray-700">3</button>
                         <button className="w-8 h-8 text-center font-medium text-gray-700">...</button>

@@ -15,23 +15,26 @@ function Home() {
             </div>
 
             {/* banner */}
-            <div className="flex justify-between flex-wrap max-w-6xl mx-auto">
-                <div className="relative w-52 h-0 pb-[30%] md:w-64 md:pb-[60%]">
+            <div className="flex justify-center items-center max-w-6xl mx-auto">
+                <div className="relative w-48 h-0 pb-[30%] md:w-56 md:pb-[60%] z-10 mx-2">
                     <img src={image.banner_img_1} alt="" className="absolute top-0 left-0 w-full h-full object-cover rounded-md shadow-md" />
                 </div>
-                <div className="relative w-64 h-0 pb-[40%]">
+                <div className="relative w-56 h-0 pb-[40%] z-20 mx-2 -translate-y-2">
                     <img src={image.banner_img_2} alt="" className="absolute top-0 left-0 w-full h-full object-cover rounded-md shadow-md" />
                 </div>
-                <div className="relative w-64 h-0 pb-[46%]">
-                    <img src={image.banner_img_3} alt="" className="absolute top-0 left-0 w-full h-full object-cover rounded-md shadow-md" />
+                <div className="relative w-64 h-0 pb-[46%] z-30 mx-2 -translate-y-4">
+                    <img src={image.banner_img_3} alt="" className="absolute top-0 left-0 w-full h-full object-cover rounded-md shadow-lg" />
                 </div>
-                <div className="relative w-64 h-0 pb-[40%]">
+                <div className="relative w-56 h-0 pb-[40%] z-20 mx-2 -translate-y-2">
                     <img src={image.banner_img_4} alt="" className="absolute top-0 left-0 w-full h-full object-cover rounded-md shadow-md" />
                 </div>
-                <div className="relative w-52 h-0 pb-[30%] md:w-64 md:pb-[60%]">
+                <div className="relative w-48 h-0 pb-[30%] md:w-56 md:pb-[60%] z-10 mx-2">
                     <img src={image.banner_img_5} alt="" className="absolute top-0 left-0 w-full h-full object-cover rounded-md shadow-md" />
                 </div>
             </div>
+
+
+
         </section>
 
             <div className="container mx-auto">
