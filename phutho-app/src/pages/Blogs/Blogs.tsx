@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { DatePicker, Space } from 'antd';
 import { Link } from 'react-router-dom';
 import PageHeader from '../../components/PageHeader';
@@ -6,9 +7,20 @@ import image from '../../assets/images';
 import PostCard from '../../components/PostCard';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { useFetchBlogsPaginatedQuery } from '../../apis/blog';
+
 
 function Blogs() {
+
+    const [page, setPage] = useState(1);
+    const { data, error, isLoading } = useFetchBlogsPaginatedQuery({ page, limit: 5 });
+
+    if (isLoading) return <p>Loading...</p>;
+    if (error) return <p>Error loading blogs</p>;
+
     return (
+
+        
         <div className="pt-12 md:pt-6">
             <div className="flex flex-col">
                 <div className="flex items-center justify-center">
@@ -209,13 +221,25 @@ function Blogs() {
 
                         {/* Blog List */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                            <PostCard mini host="Admin" title="Thông báo đấu giá giữ xe tại CVHH Đầm Sen" tags={[{ name: 'Sự kiện' }, { name: 'Thông báo' }]} view="10N" postDate="20/02/2022" image={image.blog_img_3} />
-                            <PostCard mini host="Admin" title="Thông báo đấu giá giữ xe tại CVHH Đầm Sen" tags={[{ name: 'Sự kiện' }, { name: 'Thông báo' }]} view="10N" postDate="20/02/2022" image={image.blog_img_3} />
-                            <PostCard mini host="Admin" title="Thông báo đấu giá giữ xe tại CVHH Đầm Sen" tags={[{ name: 'Sự kiện' }, { name: 'Thông báo' }]} view="10N" postDate="20/02/2022" image={image.blog_img_3} />
-                            <PostCard mini host="Admin" title="Thông báo đấu giá giữ xe tại CVHH Đầm Sen" tags={[{ name: 'Sự kiện' }, { name: 'Thông báo' }]} view="10N" postDate="20/02/2022" image={image.blog_img_3} />
-                            <PostCard mini host="Admin" title="Thông báo đấu giá giữ xe tại CVHH Đầm Sen" tags={[{ name: 'Sự kiện' }, { name: 'Thông báo' }]} view="10N" postDate="20/02/2022" image={image.blog_img_3} />
-                            <PostCard mini host="Admin" title="Thông báo đấu giá giữ xe tại CVHH Đầm Sen" tags={[{ name: 'Sự kiện' }, { name: 'Thông báo' }]} view="10N" postDate="20/02/2022" image={image.blog_img_3} />
-                            <PostCard mini host="Admin" title="Thông báo đấu giá giữ xe tại CVHH Đầm Sen" tags={[{ name: 'Sự kiện' }, { name: 'Thông báo' }]} view="10N" postDate="20/02/2022" image={image.blog_img_3} />
+                        {data?.blogs.map(blog => (
+                                        <PostCard
+                                        id={blog.id}
+                                        mini={true}
+                                        host={blog.author}
+                                        title={blog.title}
+                                        tags={blog.tags}
+                                        view='10N'
+                                        postDate={blog.postedDate}
+                                        image={blog.image}
+                                    />
+                                    ))}
+                            {/* <PostCard mini host="Admin" title="Thông báo đấu giá giữ xe tại CVHH Đầm Sen" tags={[{ name: 'Thông báo' }]} view="10N" postDate="20/02/2022" image={image.blog_img_3} />
+                            <PostCard mini host="Admin" title="Thông báo đấu giá giữ xe tại CVHH Đầm Sen" tags={[{ name: 'Sự kiện' }, { name: 'Thông báo' }]} view="10N" postDate="20/02/2022" image={image.blog_img_1} />
+                            <PostCard mini host="Admin" title="Thông báo đấu giá giữ xe tại CVHH Đầm Sen" tags={[{ name: 'Sự kiện' }, { name: 'Thông báo' }]} view="10N" postDate="20/02/2022" image={image.blog_img_2} />
+                            <PostCard mini host="Admin" title="Thông báo đấu giá giữ xe tại CVHH Đầm Sen" tags={[{ name: 'Sự kiện' }, { name: 'Thông báo' }]} view="10N" postDate="20/02/2022" image={image.blog_img_4} />
+                            <PostCard mini host="Admin" title="Thông báo đấu giá giữ xe tại CVHH Đầm Sen" tags={[{ name: 'Sự kiện' }, { name: 'Thông báo' }]} view="10N" postDate="20/02/2022" image={image.blog_img_5} />
+                            <PostCard mini host="Admin" title="Thông báo đấu giá giữ xe tại CVHH Đầm Sen" tags={[{ name: 'Sự kiện' }, { name: 'Thông báo' }]} view="10N" postDate="20/02/2022" image={image.blog_img_6} />
+                            <PostCard mini host="Admin" title="Thông báo đấu giá giữ xe tại CVHH Đầm Sen" tags={[{ name: 'Sự kiện' }, { name: 'Thông báo' }]} view="10N" postDate="20/02/2022" image={image.blog_img_7} /> */}
                             {/* Repeat other PostCards as needed */}
                         </div>
 
