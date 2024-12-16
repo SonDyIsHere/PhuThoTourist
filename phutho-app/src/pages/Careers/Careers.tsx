@@ -3,20 +3,101 @@ import { DatePicker, Space } from 'antd';
 import PageHeader from '../../components/PageHeader';
 import icon from '../../assets/icon';
 import CareerCard from '../../components/CareerCard';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import React from 'react';
 
+const ITEMS_PER_PAGE = 6; // Số lượng bài tuyển dụng trên mỗi trang
+
 const Careers: React.FC = () => {
+    const [selectedFields, setSelectedFields] = useState<string[]>([]); // Lĩnh vực
+    const [selectedWorkForms, setSelectedWorkForms] = useState<string[]>([]); // Hình thức làm việc
+    const [selectedLocations, setSelectedLocations] = useState<string[]>([]); // Nơi làm việc
+    const [careersData, setCareersData] = useState<any[]>([]); // Danh sách bài tuyển dụng
+    const [currentPage, setCurrentPage] = useState<number>(1); // Trang hiện tại
+    const [filteredData, setFilteredData] = useState<any[]>([]); // Dữ liệu sau khi lọc
 
-    const [selectedFields, setSelectedFields] = useState<string[]>([]);
-    const [selectedWorkForms, setSelectedWorkForms] = useState<string[]>([]);
-    const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
+    // Giả lập dữ liệu tuyển dụng (hoặc thay bằng API)
+    useEffect(() => {
 
-    const toggleSelection = (item: string, setSelected: React.Dispatch<React.SetStateAction<string[]>>, selectedItems: string[]) => {
-        if (selectedItems.includes(item)) {
-            setSelected(selectedItems.filter(i => i !== item));
+        const fakeJobs = [
+            { jobTitle: 'Nhân viên', field: 'Thiết kế đồ hoạ', location: 'CVVH Đầm Sen', postedTime: '2 tuần trước', status: 'Đang tuyển', jobDescription: 'Thiết kế đồ họa cho các dự án marketing và truyền thông.' },
+            { jobTitle: 'Nhân viên', field: 'Kinh doanh', location: 'TP.HCM', postedTime: '1 tuần trước', status: 'Hết hạn', jobDescription: 'Phát triển và duy trì mối quan hệ với khách hàng tiềm năng.' },
+            { jobTitle: 'Nhân viên', field: 'Công nghệ thông tin', location: 'Hà Nội', postedTime: '3 ngày trước', status: 'Đang tuyển', jobDescription: 'Lập trình phần mềm và bảo trì các hệ thống công nghệ.' },
+            { jobTitle: 'Lập trình viên', field: 'Công nghệ thông tin', location: 'TP.HCM', postedTime: '1 tháng trước', status: 'Đang tuyển', jobDescription: 'Phát triển ứng dụng web và phần mềm theo yêu cầu.' },
+            { jobTitle: 'Nhân viên', field: 'Marketing', location: 'Hà Nội', postedTime: '3 tuần trước', status: 'Đang tuyển', jobDescription: 'Lên kế hoạch và triển khai các chiến dịch marketing trực tuyến.' },
+            { jobTitle: 'Nhân viên', field: 'Nhân sự', location: 'Đà Nẵng', postedTime: '5 ngày trước', status: 'Hết hạn', jobDescription: 'Quản lý và phát triển nguồn nhân lực, tuyển dụng nhân viên.' },
+            { jobTitle: 'Chuyên viên', field: 'Tài chính', location: 'TP.HCM', postedTime: '4 tuần trước', status: 'Đang tuyển', jobDescription: 'Đảm bảo các hoạt động tài chính, kế toán trong công ty đúng quy trình.' },
+            { jobTitle: 'Nhân viên', field: 'Quản lý dự án', location: 'Hà Nội', postedTime: '2 tháng trước', status: 'Đang tuyển', jobDescription: 'Quản lý và giám sát tiến độ các dự án của công ty.' },
+            { jobTitle: 'Nhân viên', field: 'Phân tích dữ liệu', location: 'TP.HCM', postedTime: '1 ngày trước', status: 'Đang tuyển', jobDescription: 'Phân tích và báo cáo dữ liệu nhằm hỗ trợ quyết định kinh doanh.' },
+            { jobTitle: 'Lập trình viên', field: 'Công nghệ thông tin', location: 'Đà Nẵng', postedTime: '1 tuần trước', status: 'Hết hạn', jobDescription: 'Phát triển các ứng dụng phần mềm phục vụ khách hàng.' },
+            { jobTitle: 'Nhân viên', field: 'Quản lý sản phẩm', location: 'Hà Nội', postedTime: '5 tuần trước', status: 'Đang tuyển', jobDescription: 'Quản lý và phát triển các sản phẩm mới của công ty.' },
+            { jobTitle: 'Chuyên viên', field: 'Kế toán', location: 'TP.HCM', postedTime: '6 ngày trước', status: 'Hết hạn', jobDescription: 'Quản lý báo cáo tài chính và xử lý các vấn đề kế toán.' },
+            { jobTitle: 'Nhân viên', field: 'Thiết kế đồ hoạ', location: 'Hà Nội', postedTime: '2 tuần trước', status: 'Đang tuyển', jobDescription: 'Thiết kế các tài liệu quảng cáo và hình ảnh trực quan.' },
+            { jobTitle: 'Quản lý', field: 'Logistics', location: 'TP.HCM', postedTime: '3 tuần trước', status: 'Đang tuyển', jobDescription: 'Quản lý chuỗi cung ứng và các hoạt động logistics của công ty.' },
+            { jobTitle: 'Nhân viên', field: 'Dịch vụ khách hàng', location: 'Đà Nẵng', postedTime: '1 tháng trước', status: 'Hết hạn', jobDescription: 'Cung cấp dịch vụ hỗ trợ khách hàng qua các kênh trực tuyến.' },
+            { jobTitle: 'Chuyên viên', field: 'Quản lý tài sản', location: 'Hà Nội', postedTime: '2 tuần trước', status: 'Đang tuyển', jobDescription: 'Quản lý và giám sát các tài sản của công ty.' },
+            { jobTitle: 'Nhân viên', field: 'Bán hàng', location: 'TP.HCM', postedTime: '3 ngày trước', status: 'Đang tuyển', jobDescription: 'Tìm kiếm và duy trì mối quan hệ với khách hàng bán lẻ.' },
+            { jobTitle: 'Lập trình viên', field: 'Ứng dụng di động', location: 'Hà Nội', postedTime: '4 tuần trước', status: 'Đang tuyển', jobDescription: 'Phát triển và tối ưu hóa ứng dụng di động cho công ty.' },
+            { jobTitle: 'Nhân viên', field: 'Chăm sóc khách hàng', location: 'Hà Nội', postedTime: '2 tháng trước', status: 'Hết hạn', jobDescription: 'Hỗ trợ khách hàng trong quá trình sử dụng sản phẩm dịch vụ.' },
+            { jobTitle: 'Chuyên viên', field: 'Phát triển kinh doanh', location: 'TP.HCM', postedTime: '1 tháng trước', status: 'Đang tuyển', jobDescription: 'Phát triển kế hoạch kinh doanh, tìm kiếm cơ hội phát triển mới.' },
+            { jobTitle: 'Nhân viên', field: 'Kỹ thuật', location: 'Đà Nẵng', postedTime: '1 tuần trước', status: 'Đang tuyển', jobDescription: 'Sửa chữa, bảo trì thiết bị kỹ thuật của công ty.' },
+            { jobTitle: 'Lập trình viên', field: 'Công nghệ thông tin', location: 'TP.HCM', postedTime: '2 ngày trước', status: 'Đang tuyển', jobDescription: 'Xây dựng và duy trì phần mềm công nghệ thông tin cho công ty.' }
+        ];
+        
+        
+        const fakeData = fakeJobs.map((job, index) => ({
+            id: index + 1,
+            jobTitle: `${job.jobTitle} ${job.field}`, // Kết hợp Công việc + Lĩnh vực
+            location: job.location,
+            postedTime: job.postedTime,
+            status: job.status,
+            field: job.field, // Thêm thông tin lĩnh vực nếu cần
+            description: job.jobDescription
+        }));
+        setCareersData(fakeData);
+        setFilteredData(fakeData);
+    }, []);
+
+    // Lọc dữ liệu khi có sự thay đổi ở các tiêu chí lọc
+    useEffect(() => {
+        const filtered = careersData.filter(career => {
+            const matchesField = selectedFields.length === 0 || selectedFields.includes(career.field);
+            const matchesWorkForm = selectedWorkForms.length === 0 || selectedWorkForms.includes(career.type);
+            const matchesLocation = selectedLocations.length === 0 || selectedLocations.includes(career.location);
+
+            return matchesField && matchesWorkForm && matchesLocation;
+        });
+
+        setFilteredData(filtered);
+        setCurrentPage(1); // Reset to the first page whenever filters are changed
+    }, [selectedFields, selectedWorkForms, selectedLocations, careersData]);
+
+    // Dữ liệu bài tuyển dụng theo trang hiện tại
+    const currentData = filteredData.slice(
+        (currentPage - 1) * ITEMS_PER_PAGE,
+        currentPage * ITEMS_PER_PAGE
+    );
+
+    // Tổng số trang
+    const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE);
+
+    // Xử lý thay đổi trang
+    const handlePageChange = (newPage: number) => {
+        if (newPage > 0 && newPage <= totalPages) {
+            setCurrentPage(newPage);
+        }
+    };
+
+    // Hàm toggleSelection giữ nguyên lựa chọn của các bộ lọc
+    const toggleSelection = (
+        item: string,
+        selectedList: string[],
+        setSelectedList: React.Dispatch<React.SetStateAction<string[]>>
+    ) => {
+        if (selectedList.includes(item)) {
+            setSelectedList(selectedList.filter(i => i !== item)); // Bỏ chọn nếu đã có
         } else {
-            setSelected([...selectedItems, item]);
+            setSelectedList([...selectedList, item]); // Thêm vào nếu chưa có
         }
     };
 
@@ -26,21 +107,19 @@ const Careers: React.FC = () => {
                 <PageHeader text="TUYỂN DỤNG" />
             </div>
             <div className="flex px-44 py-14 min-w-[1000px] mx-auto space-x-12">
-                <div className='min-w-[400px]'>
-                {/* Career Filter */}
-                <div className="flex flex-col border-white border-b lg:flex-row gap-4 bg-slate-300 p-6 lg:p-4 rounded-t-lg shadow-lg backdrop-blur-md">
-                    <div className="flex items-center gap-4 bg-white p-2 rounded-md shadow-sm w-full">
-                        <img src={icon.search} alt="Search" className="w-5 h-5" />
-                        <input
-                            type="text"
-                            className="flex-1 text-gray-500 placeholder-gray-400 text-lg"
-                            placeholder="Tìm kiếm"
-                        />
+                <div className="min-w-[400px]">
+                    {/* Career Filter */}
+                    <div className="flex flex-col border-white border-b lg:flex-row gap-4 bg-slate-300 p-6 lg:p-4 rounded-t-lg shadow-lg backdrop-blur-md">
+                        <div className="flex items-center gap-4 bg-white p-2 rounded-md shadow-sm w-full">
+                            <img src={icon.search} alt="Search" className="w-5 h-5" />
+                            <input
+                                type="text"
+                                className="flex-1 text-gray-500 placeholder-gray-400 text-lg"
+                                placeholder="Tìm kiếm"
+                            />
+                        </div>
                     </div>
-                </div>
 
-
-                
                     {/* Career Category */}
                     <div className="space-y-8 bg-slate-300 p-10">
                         <div>
@@ -49,11 +128,13 @@ const Careers: React.FC = () => {
                                 Lĩnh vực
                             </h2>
                             <ul className="flex flex-wrap gap-2 mt-4">
-                                {['Hướng dẫn viên', 'Kinh doanh', 'Kỹ sư xây dựng', 'Nhân viên kế toán'].map((item, index) => (
+                                {['Công nghệ thông tin', 'Marketing', 'Kinh doanh', 'Thiết kế đồ hoạ', 'Quản lý dự án'].map((item, index) => (
                                     <li
                                         key={index}
-                                        onClick={() => toggleSelection(item, setSelectedFields, selectedFields)}
-                                        className={`px-4 py-2 rounded-full shadow-md text-gray-600 cursor-pointer ${selectedFields.includes(item) ? 'bg-blue-900 text-white' : 'bg-white hover:opacity-70'}`}
+                                        onClick={() => toggleSelection(item, selectedFields, setSelectedFields)}
+                                        className={`px-4 py-2 rounded-full shadow-md text-gray-600 cursor-pointer ${
+                                            selectedFields.includes(item) ? 'bg-blue-900 text-white' : 'bg-white hover:opacity-70'
+                                        }`}
                                     >
                                         {item}
                                     </li>
@@ -69,8 +150,10 @@ const Careers: React.FC = () => {
                                 {['Bán thời gian', 'Nhân viên chính thức', 'Theo ca', 'Thực tập'].map((item, index) => (
                                     <li
                                         key={index}
-                                        onClick={() => toggleSelection(item, setSelectedWorkForms, selectedWorkForms)}
-                                        className={`px-4 py-2 rounded-full shadow-md text-gray-600 cursor-pointer ${selectedWorkForms.includes(item) ? 'bg-blue-900 text-white' : 'bg-white hover:opacity-70'}`}
+                                        onClick={() => toggleSelection(item,  selectedWorkForms, setSelectedWorkForms)}
+                                        className={`px-4 py-2 rounded-full shadow-md text-gray-600 cursor-pointer ${
+                                            selectedWorkForms.includes(item) ? 'bg-blue-900 text-white' : 'bg-white hover:opacity-70'
+                                        }`}
                                     >
                                         {item}
                                     </li>
@@ -86,8 +169,10 @@ const Careers: React.FC = () => {
                                 {['Cà Phê Vườn Đá', 'NH Thủy Tạ Đầm Sen', 'CVVH Đầm Sen', 'Khách sạn Ngọc Lan'].map((item, index) => (
                                     <li
                                         key={index}
-                                        onClick={() => toggleSelection(item, setSelectedLocations, selectedLocations)}
-                                        className={`px-4 py-2 rounded-full shadow-md text-gray-600 cursor-pointer ${selectedLocations.includes(item) ? 'bg-blue-900 text-white' : 'bg-white hover:opacity-70'}`}
+                                        onClick={() => toggleSelection(item, selectedLocations, setSelectedLocations)}
+                                        className={`px-4 py-2 rounded-full shadow-md text-gray-600 cursor-pointer ${
+                                            selectedLocations.includes(item) ? 'bg-blue-900 text-white' : 'bg-white hover:opacity-70'
+                                        }`}
                                     >
                                         {item}
                                     </li>
@@ -95,38 +180,53 @@ const Careers: React.FC = () => {
                             </ul>
                         </div>
                     </div>
-
-                    </div>
+                </div>
                 <div>
                     {/* Career Cards */}
                     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-                        <CareerCard active={true} />
-                        <CareerCard />
-                        <CareerCard active={true} />
-                        <CareerCard active={true} />
-                        <CareerCard active={true} />
-                        <CareerCard />
+                        {currentData.map((career) => (
+                           <CareerCard
+                           key={career.id}
+                           combinedTitle={`${career.jobTitle}`}  // Tiêu đề kết hợp
+                           location={career.location}
+                           postedTime={career.postedTime}
+                           status={career.status}
+                           description={career.description}
+                           isActive={career.isActive}
+                       />
+                        ))}
                     </div>
 
                     {/* Pagination */}
-                    <div className="flex items-center w-64 justify-center m-auto rounded-full space-x-2 mt-8 bg-slate-300">
-                        <button className="w-8 h-8 flex items-center justify-center text-gray-400">
+                    <div className="flex items-center justify-center mt-8 space-x-2">
+                        <button
+                            className="w-8 h-8 flex items-center justify-center text-gray-400"
+                            disabled={currentPage === 1}
+                            onClick={() => handlePageChange(currentPage - 1)}
+                        >
                             <img src={icon.paginate_prev_disable} alt="Previous" />
                         </button>
-                        <button className="w-8 h-8 m-2 text-center font-medium bg-blue-600 text-white rounded">1</button>
-                        <button className="w-8 h-8 text-center font-medium text-gray-700">2</button>
-                        <button className="w-8 h-8 text-center font-medium text-gray-700">3</button>
-                        <button className="w-8 h-8 text-center font-medium text-gray-700">...</button>
-                        <button className="w-8 h-8 text-center font-medium text-gray-700">10</button>
-                        <button className="w-8 h-8 flex items-center justify-center">
+                        {Array.from({ length: totalPages }).map((_, index) => (
+                            <button
+                                key={index}
+                                className={`w-8 h-8 text-center font-medium rounded ${currentPage === index + 1 ? 'bg-blue-600 text-white' : 'bg-white text-gray-700'}`}
+                                onClick={() => handlePageChange(index + 1)}
+                            >
+                                {index + 1}
+                            </button>
+                        ))}
+                        <button
+                            className="w-8 h-8 flex items-center justify-center"
+                            disabled={currentPage === totalPages}
+                            onClick={() => handlePageChange(currentPage + 1)}
+                        >
                             <img src={icon.paginate_next} alt="Next" />
                         </button>
                     </div>
                 </div>
-                
             </div>
         </div>
     );
-}
+};
 
 export default Careers;

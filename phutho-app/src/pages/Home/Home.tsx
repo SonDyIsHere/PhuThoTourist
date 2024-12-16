@@ -89,10 +89,11 @@ function Home() {
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 px-24 m-10">
                             <div>
                                 <PostCard
+                                    id="1" // Unique identifier
                                     host="Admin"
                                     title="Thông báo kết quả lựa chọn nhà thầu 2 màn hình Led P4 Outdoor Fullcolor"
                                     desc="Công ty Cổ phần Dịch vụ Du lịch Phú Thọ thông báo đến các nhà thầu tham gia chào hàng cạnh tranh Gói thầu: Cung cấp, lắp đặt 02 màn..."
-                                    tags={[{ name: 'Sự kiện' }, { name: 'Thông báo' }, { name: 'Tin tức' }]}
+                                    tags={['Sự kiện', 'Thông báo', 'Tin tức']} // Changed to string array
                                     view="10N"
                                     postDate="20/02/2022"
                                     image={image.post_img_1}
@@ -100,10 +101,11 @@ function Home() {
                             </div>
                             <div>
                                 <PostCard
+                                    id="2"
                                     host="Admin"
                                     title="Thông báo kết quả lựa chọn nhà cung cấp nước đá chế tác Băng Đăng"
                                     desc="Công ty Cổ phần Dịch vụ Du lịch Phú Thọ thông báo đến các đơn vị tham gia chào giá cạnh tranh Hạng mục Cung cấp nước đá để chế tạo..."
-                                    tags={[{ name: 'Sự kiện' }, { name: 'Thông báo' }, { name: 'Tin tức' }]}
+                                    tags={['Sự kiện', 'Thông báo', 'Tin tức']}
                                     view="10N"
                                     postDate="20/02/2022"
                                     image={image.post_img_2}
@@ -111,16 +113,18 @@ function Home() {
                             </div>
                             <div>
                                 <PostCard
+                                    id="3"
                                     host="Admin"
                                     title="Thông báo mời chào hàng cạnh tranh 2 màn hình Led P4 Outdoor Fullcolor"
                                     desc="CÔNG TY CỔ PHẦN DỊCH VỤ DU LỊCH PHÚ THỌ thông báo mời chào hàng cạnh tranh lựa chọn đơn vị Cung cấp, lắp đặt 02 màn hình Led P4"
-                                    tags={[{ name: 'Sự kiện' }, { name: 'Thông báo' }, { name: 'Tin tức' }]}
+                                    tags={['Sự kiện', 'Thông báo', 'Tin tức']}
                                     view="10N"
                                     postDate="20/02/2022"
                                     image={image.post_img_1}
                                 />
                             </div>
                         </div>
+
                         <div className="flex justify-center">
                             <Button className="relative items-center" text="Xem thêm bài viết" to="#" maxWidth="202px" />
                         </div>
