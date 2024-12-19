@@ -102,27 +102,15 @@ const Careers: React.FC = () => {
     };
 
     return (
-        <div className="flex flex-col items-center py-12 px-4 md:py-6 md:px-2">
-            <div className="flex justify-center pt-12 md:pt-6">
+
+        <div className="flex flex-col items-center py-12 px-4 sm:py-6 sm:px-2">
+            <div className="flex justify-center pt-12 sm:pt-6">
                 <PageHeader text="TUYỂN DỤNG" />
             </div>
-            <div className="flex px-44 py-14 min-w-[1000px] mx-auto space-x-12">
-                <div className="min-w-[400px]">
-                    {/* Career Filter */}
-                    <div className="flex flex-col border-white border-b lg:flex-row gap-4 bg-slate-300 p-6 lg:p-4 rounded-t-lg shadow-lg backdrop-blur-md">
-                        <div className="flex items-center gap-4 bg-white p-2 rounded-md shadow-sm w-full">
-                            <img src={icon.search} alt="Search" className="w-5 h-5" />
-                            <input
-                                type="text"
-                                className="flex-1 text-gray-500 placeholder-gray-400 text-lg"
-                                placeholder="Tìm kiếm"
-                            />
-                        </div>
-                    </div>
-
-                    {/* Career Category */}
-                    <div className="space-y-8 bg-slate-300 p-10">
-                        <div>
+            <div className="flex flex-col sm:flex-row px-4 py-6 space-y-6 sm:space-y-0 sm:space-x-6 sm:px-8 sm:py-8">
+                {/* Bộ lọc */}
+                <div className="sm:w-1/3 flex flex-col space-y-4 bg-white p-5 rounded-xl">
+                <div>
                             <h2 className="text-2xl font-semibold text-blue-800 flex items-center gap-2">
                                 <img src={icon.bag} alt="Bag Icon" className="w-6 h-6" />
                                 Lĩnh vực
@@ -179,53 +167,50 @@ const Careers: React.FC = () => {
                                 ))}
                             </ul>
                         </div>
-                    </div>
                 </div>
-                <div>
-                    {/* Career Cards */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-                        {currentData.map((career) => (
-                           <CareerCard
-                           key={career.id}
-                           combinedTitle={`${career.jobTitle}`}  // Tiêu đề kết hợp
-                           location={career.location}
-                           postedTime={career.postedTime}
-                           status={career.status}
-                           description={career.description}
-                           isActive={career.isActive}
-                       />
-                        ))}
-                    </div>
-
-                    {/* Pagination */}
-                    <div className="flex items-center justify-center mt-8 space-x-2">
-                        <button
-                            className="w-8 h-8 flex items-center justify-center text-gray-400"
-                            disabled={currentPage === 1}
-                            onClick={() => handlePageChange(currentPage - 1)}
-                        >
-                            <img src={icon.paginate_prev_disable} alt="Previous" />
-                        </button>
-                        {Array.from({ length: totalPages }).map((_, index) => (
-                            <button
-                                key={index}
-                                className={`w-8 h-8 text-center font-medium rounded ${currentPage === index + 1 ? 'bg-blue-600 text-white' : 'bg-white text-gray-700'}`}
-                                onClick={() => handlePageChange(index + 1)}
-                            >
-                                {index + 1}
-                            </button>
-                        ))}
-                        <button
-                            className="w-8 h-8 flex items-center justify-center"
-                            disabled={currentPage === totalPages}
-                            onClick={() => handlePageChange(currentPage + 1)}
-                        >
-                            <img src={icon.paginate_next} alt="Next" />
-                        </button>
-                    </div>
+                {/* Cards */}
+                <div className="sm:w-2/3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {currentData.map((career) => (
+                        <CareerCard
+                            key={career.id}
+                            combinedTitle={career.jobTitle}
+                            location={career.location}
+                            postedTime={career.postedTime}
+                            status={career.status}
+                            description={career.description}
+                            isActive={career.isActive}
+                        />
+                    ))}
                 </div>
             </div>
+            {/* Pagination */}
+            <div className="flex justify-center mt-6 space-x-2">
+                <button
+                    className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center text-gray-400"
+                    disabled={currentPage === 1}
+                    onClick={() => handlePageChange(currentPage - 1)}
+                >
+                    &lt;
+                </button>
+                {Array.from({ length: totalPages }).map((_, index) => (
+                    <button
+                        key={index}
+                        className={`w-8 h-8 sm:w-10 sm:h-10 text-center font-medium rounded ${currentPage === index + 1 ? 'bg-blue-600 text-white' : 'bg-white text-gray-700'}`}
+                        onClick={() => handlePageChange(index + 1)}
+                    >
+                        {index + 1}
+                    </button>
+                ))}
+                <button
+                    className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center"
+                    disabled={currentPage === totalPages}
+                    onClick={() => handlePageChange(currentPage + 1)}
+                >
+                    &gt;
+                </button>
+            </div>
         </div>
+
     );
 };
 
